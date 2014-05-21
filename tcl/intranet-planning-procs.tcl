@@ -39,6 +39,8 @@ ad_proc -public im_planning_component {
     No planning dimensions are specified by default, so that means planning
     per project and sub-project normally.
 } {
+    im_security_alert_check_integer -location "im_planning_component" -value $object_id
+
     # Skip evaluating the component if we are not in a main project
     set parent_id [util_memoize [list db_string parent "select parent_id from im_projects where project_id = $object_id" -default ""]]
     if {$restrict_to_main_project_p && "" != $parent_id} { return "" }

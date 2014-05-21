@@ -101,10 +101,14 @@ switch $action {
 	    set item_status_id [im_planning_item_status_active]
 	    set value [im_opt_val item_value($id)]
 	    set note [im_opt_val item_note($id)]
+	    set date_value [im_opt_val item_date($id)]
+	    im_security_alert_check_integer -location "intranet-planning/action.tcl" -value $project_phase_id
+	    im_security_alert_check_integer -location "intranet-planning/action.tcl" -value $project_member_id
+	    im_security_alert_check_alphanum -location "intranet-planning/action.tcl" -value $date_value
+
 
 	    # Fix date according to date dimension type
 	    # Work around errors in the PG date processing
-	    set date_value [im_opt_val item_date($id)]
 	    switch $planning_dimension_date {
 		week { ad_return_complaint 1 "<b>Not implemented yet</b>:<br>PostgreSQL 8.4 includes an error with processing ISO weeks." }
 		month { set date [util_memoize [list db_string to_date "select to_date('$date_value', 'YYYY-MM') from dual" -default ""]] }
