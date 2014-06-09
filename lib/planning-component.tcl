@@ -151,6 +151,8 @@ set dimension_project_phase_list [db_list_of_lists dim_project_phase "
 	from	im_projects p
 	where	p.parent_id = :object_id and
 		p.project_status_id not in (select * from im_sub_categories([im_project_status_deleted]))
+	order by
+		tree_sortkey
 "]
 
 
