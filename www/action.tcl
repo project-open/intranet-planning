@@ -111,16 +111,15 @@ switch $action {
 	    # Work around errors in the PG date processing
 	    switch $planning_dimension_date {
 		week { ad_return_complaint 1 "<b>Not implemented yet</b>:<br>PostgreSQL 8.4 includes an error with processing ISO weeks." }
-		month { set date [util_memoize [list db_string to_date "select to_date('$date_value', 'YYYY-MM') from dual" -default ""]] }
+		month { set date [util_memoize [list db_string to_date_month "select to_date('$date_value', 'YYYY-MM') from dual" -default ""]] }
 		quarter {
 		    if {[regexp {(....)-(.)} $date_value match year quarter]} {
-			set date [util_memoize [list db_string to_date "select to_date('$year-[expr 1 + ($quarter-1) * 3]', 'YYYY-MM')"]]
-			# ad_return_complaint 1 "date_value=$date_value, date=$date"
+			set date [util_memoize [list db_string to_date_quarter "select to_date('$year-[expr 1 + ($quarter-1) * 3]', 'YYYY-MM')"]]
 		    } else {
 			ad_return_complaint 1 "<b>Error storing '$planning_dimension_date' date '$date_value'"
 		    }
 		}
-		year { set date "to_date(:date_value, 'YYYY')::timestamptz" }
+		year { set date [util_memoize [list db_string to_date_year "select to_date('$date_value', 'YYYY') from dual" -default ""]] }
 	    }
 
 	    set billing_rate $default_billing_rate
