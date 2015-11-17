@@ -47,13 +47,13 @@ set bgcolor(1) " class=rowodd"
 set required_field "<font color=red size=+1><B>*</B></font>"
 
 # Should we show a "Material" field for invoice lines?
-# set material_enabled_p [ad_parameter -package_id [im_package_invoices_id] "ShowInvoiceItemMaterialFieldP" "" 0]
+# set material_enabled_p [im_parameter -package_id [im_package_invoices_id] "ShowInvoiceItemMaterialFieldP" "" 0]
 set material_enabled_p 0
-# set project_type_enabled_p [ad_parameter -package_id [im_package_invoices_id] "ShowInvoiceItemProjectTypeFieldP" "" 1]
+# set project_type_enabled_p [im_parameter -package_id [im_package_invoices_id] "ShowInvoiceItemProjectTypeFieldP" "" 1]
 set project_type_enabled_p 0
 
 set default_material_id [im_material_default_material_id]
-set default_currency [ad_parameter -package_id [im_package_cost_id] "DefaultCurrency" "" "EUR"]
+set default_currency [im_parameter -package_id [im_package_cost_id] "DefaultCurrency" "" "EUR"]
 
 # ---------------------------------------------------------------
 # Get base information
