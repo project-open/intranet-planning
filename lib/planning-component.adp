@@ -1,6 +1,6 @@
 
 <form action="/intranet-planning/action" method=POST>
-<%= [export_form_vars object_id return_url] %>
+<%= [export_vars -form {object_id return_url}] %>
 <table>
 @header;noquote@
 @body;noquote@

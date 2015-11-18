@@ -5,7 +5,7 @@
 
 <form action=/intranet-invoices/new-2 method=POST>
 <% set invoice_id $new_invoice_id %>
-<%= [export_form_vars invoice_id project_id select_project return_url reference_document_id] %>
+<%= [export_vars -form {invoice_id project_id select_project return_url reference_document_id}] %>
 
 <table border=0 width="100%">
 <tr><td>
