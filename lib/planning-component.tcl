@@ -44,8 +44,10 @@ if {[llength $top_dimension] > 1} { ad_return_complaint 1 "<b>Not implemented ye
 if {[llength $left_dimension] > 1} { ad_return_complaint 1 "<b>Not implemented yet</b>:<br>Please limit LeftDimension to a single variable." }
 
 
+# ad_return_complaint xx "$top_dimension $left_dimension"
 
-
+set top_dimension cost_type 
+set left_dimension project_phase
 # -------------------------------------------------------------
 # Calculate the top and left variables to select out from the im_planning_items table
 #

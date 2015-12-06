@@ -58,3 +58,29 @@ ad_proc -public im_planning_component {
     return [string trim $result]
 }
 
+
+ad_proc -public im_planning_table_view_component {
+    {-planning_type_id 73100 }
+    {-item_cost_type_id 3700 }    
+    {-restrict_to_main_project_p 1 }
+    -object_id
+} {
+    Returns a HTML component that shows all planning items
+    in a table view, allowing to add a new item.  
+
+} {
+    im_security_alert_check_integer -location "im_planning_component" -value $object_id
+
+    # Skip evaluating the component if we are not in a main project
+    set parent_id [util_memoize [list db_string parent "select parent_id from im_projects where project_id = $object_id" -default ""]]
+    if {$restrict_to_main_project_p && "" != $parent_id} { return "" }
+
+    set params [list \
+		    [list object_id $object_id] \
+		    [list planning_type_id $planning_type_id] \
+                    [list item_cost_type_id $item_cost_type_id] \
+    ]
+
+    return [string trim [ad_parse_template -params $params "/packages/intranet-planning/lib/planning-component-table"]]
+}
+

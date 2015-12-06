@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<message_catalog package_key="intranet-planning" locale="en_US" charset="ISO-8859-1">
+  <msg key="PlanningStatus">Planning Status</msg>
+  <msg key="PlanningType">Planning Type</msg>
+  <msg key="item_id">Id</msg>
+  <msg key="item_note">Note</msg>
+  <msg key="project_name">Project Name</msg>
+  <msg key="item_date_formatted">Item date</msg>
+  <msg key="item_value">Value</msg>
+  <msg key="item_currency">Currency</msg>
+  <msg key="item_status">Status</msg>
+</message_catalog>
