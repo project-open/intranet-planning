@@ -4,6 +4,12 @@
 #
 # All rights reserved. Please check
 # http://www.project-open.com/license/ for details.
+#
+# NOT PART OF THE PRODUCT
+#
+# This page allows to create financial documents form planning
+# items. However, this is only used with one specific customer
+
 
 # ---------------------------------------------------------------
 # 1. Page Contract
