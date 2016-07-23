@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <message_catalog package_key="intranet-planning" locale="de_DE" charset="ISO-8859-1">
 
+  <msg key="Apply">Anwenden</msg>
+  <msg key="Create_quote_from_date">Angebot erzeugen auf Basis von Planungselementen</msg>
   <msg key="item_currency">Währung</msg>
   <msg key="item_date_formatted">Datum</msg>
   <msg key="item_id">ID</msg>
   <msg key="item_note">Notiz</msg>
   <msg key="item_status">Status</msg>
   <msg key="item_value">Wert</msg>
+  <msg key="PlanningItems">Planungselmenete</msg>
   <msg key="PlanningStatus">Planungsstatus</msg>
   <msg key="PlanningType">Planungstyp</msg>
   <msg key="project_name">Projekt</msg>
+  <msg key="Save">Speichern</msg>
 </message_catalog>
