@@ -356,7 +356,7 @@ SELECT im_component_plugin__new (
 
 
 create or replace function inline_0 ()
-returns integer as '
+returns integer as $body$
 declare
 	-- Menu IDs
 	v_menu			integer;
@@ -370,29 +370,29 @@ declare
 	v_reg_users		integer;
 BEGIN
 	-- Get some group IDs
-	select group_id into v_senman from groups where group_name = ''Senior Managers'';
-	select group_id into v_employees from groups where group_name = ''Employees'';
-	select group_id into v_customers from groups where group_name = ''Customers'';
-	select group_id into v_freelancers from groups where group_name = ''Freelancers'';
-	select group_id into v_reg_users from groups where group_name = ''Registered Users'';
+	select group_id into v_senman from groups where group_name = 'Senior Managers';
+	select group_id into v_employees from groups where group_name = 'Employees';
+	select group_id into v_customers from groups where group_name = 'Customers';
+	select group_id into v_freelancers from groups where group_name = 'Freelancers';
+	select group_id into v_reg_users from groups where group_name = 'Registered Users';
 
 	-- Determine the main menu. "Label" is used to
 	-- identify menus.
 	select menu_id into v_main_menu
-	from im_menus where label=''main'';
+	from im_menus where label='main';
 
 	-- Create the menu.
 	v_menu := im_menu__new (
 		null,			-- p_menu_id
-		''im_component_plugin'',		-- object_type
+		'im_component_plugin',		-- object_type
 		now(),			-- creation_date
 		null,			-- creation_user
 		null,			-- creation_ip
 		null,			-- context_id
-		''intranet-planning'',	-- package_name
-		''planning'',		-- label
-		''Planning'',		-- name
-		''/intranet-planning/'',   -- url
+		'intranet-planning',	-- package_name
+		'planning',		-- label
+		'Planning',		-- name
+		'/intranet-planning/',   -- url
 		75,			-- sort_order
 		v_main_menu,		-- parent_menu_id
 		null			-- p_visible_tcl
@@ -401,16 +401,18 @@ BEGIN
 	-- Grant some groups the read permission for the main "Planning" tab.
 	-- These permissions are independent from the user`s permission to
 	-- read the actual planning.
-	PERFORM acs_permission__grant_permission(v_menu, v_senman, ''read'');
-	PERFORM acs_permission__grant_permission(v_menu, v_employees, ''read'');
-	PERFORM acs_permission__grant_permission(v_menu, v_customers, ''read'');
-	PERFORM acs_permission__grant_permission(v_menu, v_freelancers, ''read'');
-	PERFORM acs_permission__grant_permission(v_menu, v_reg_users, ''read'');
+	PERFORM acs_permission__grant_permission(v_menu, v_senman, 'read');
+	PERFORM acs_permission__grant_permission(v_menu, v_employees, 'read');
+	PERFORM acs_permission__grant_permission(v_menu, v_customers, 'read');
+	PERFORM acs_permission__grant_permission(v_menu, v_freelancers, 'read');
+	PERFORM acs_permission__grant_permission(v_menu, v_reg_users, 'read');
 
 	return 0;
-end;' language 'plpgsql';
+end;$body$ language 'plpgsql';
 -- Execute and then drop the function
-select inline_0 ();
+
+-- fraber 160729: Menu is not required
+-- select inline_0 ();
 drop function inline_0 ();
 
 
