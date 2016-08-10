@@ -24,7 +24,8 @@ set td_class(0) "class=roweven"
 set td_class(1) "class=rowodd"
 
 set name_order [parameter::get -package_id [apm_package_id_from_key intranet-core] -parameter "NameOrder" -default 1]
-set currency [ad_parameter -package_id [im_package_cost_id] "DefaultCurrency" "" "EUR"]
+set currency [parameter::get_from_package_key -package_key "intranet-cost" -parameter "DefaultCurrency" -default "EUR"]
+
 
 set return_url "/intranet/projects/view?project_id=$object_id"
 
