@@ -85,7 +85,8 @@ db_foreach planning_item $sql {
     append body_html "<tr $td_class([expr $count % 2])>"
     append body_html "<td>$item_note</td>" 
     append body_html "<td align=\"right\">$item_value</td>"
-    append body_html "<td align=\"right\">$item_currency</td>"
+    # Fraber 170201: No currency for planning items!!!
+    # append body_html "<td align=\"right\">$item_currency</td>"
     append body_html "<td>$item_date_formatted</td>"
     append body_html "<td>$item_status</td>"
     append body_html "<td><input type=checkbox name='delete_item.$item_id' value=''>"
@@ -99,7 +100,9 @@ append body_html "<tr><td class=\"rowtitle\" colspan='6'>[lang::message::lookup 
 append body_html "<tr>"
 append body_html "<td><input type=input size=12 maxlength=12 name=\"item_note\" value=\"\"></td>" 
 append body_html "<td><input type=input size=6 maxlength=6 name=\"item_value\" value=\"\"></td>" 
-append body_html "<td>[im_currency_select item_currency $currency]</td>" 
+
+# Fraber 170201: No currency for planning items!!!
+# append body_html "<td>[im_currency_select item_currency $currency]</td>" 
 append body_html "<td><input type=input size=10 maxlength=10 name=\"item_date\" id=\"item_date\" value=\"\">"
 append body_html "<td colspan='3'>[im_category_select "Intranet Planning Status" item_status_id 73000] &nbsp; <input type=submit value='[lang::message::lookup "" intranet-core.Submit "Submit"]' name=submit_apply></td>"
 append body_html "</tr>"
