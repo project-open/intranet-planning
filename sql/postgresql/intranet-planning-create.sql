@@ -398,6 +398,9 @@ BEGIN
 		null			-- p_visible_tcl
 	);
 	
+	-- Disable the top-level tab until there are some reasonable pages for it...
+	update im_menus set enabled_p = 'f' where label = 'planning';
+
 	-- Grant some groups the read permission for the main "Planning" tab.
 	-- These permissions are independent from the user`s permission to
 	-- read the actual planning.
@@ -418,7 +421,68 @@ drop function inline_0 ();
 
 
 -- Disable the top-level tab until there are some reasonable pages for it...
-update im_menus
-set enabled_p = 'f'
-where label = 'planning';
+update im_menus set enabled_p = 'f' where label = 'planning';
+
+
+
+
+
+SELECT  im_component_plugin__new (
+        NULL,                           -- plugin_id
+        'im_component_plugin',                   -- object_type
+        now(),                          -- creation_date
+        NULL,                           -- creation_user
+        NULL,                           -- creation_ip
+        NULL,                           -- context_id
+        'Planning Component (Table View)',  -- plugin_name
+        'intranet-planning',                -- package_name
+        'left',                        	-- location
+        '/intranet/projects/view',      -- page_url
+        NULL,                           -- view_name
+        20,                             -- sort_order
+        'im_planning_table_view_component -object_id $project_id'   -- component_tcl
+);
+ 
+-- Permissions
+PERFORM im_grant_permission(
+	(select plugin_id from im_component_plugins where plugin_name = 'Planning Component (Table View)',
+	(select group_id from im_groups where name = 'Employees'), 
+	'read'
+);
+
+
+delete from im_view_columns where view_id = 990;
+delete from im_views where view_id = 990;
+
+INSERT INTO im_views (view_id, view_name, visible_for, view_type_id) VALUES (990, 'planning_items_default', '', 1400);
+
+INSERT INTO im_view_columns (column_id, view_id, group_id, column_name, column_render_tcl,
+extra_select, extra_where, sort_order, visible_for) VALUES (99000,990,NULL,'item_id',
+'$item_id','','',10,'');
+
+INSERT INTO im_view_columns (column_id, view_id, group_id, column_name, column_render_tcl,
+extra_select, extra_where, sort_order, visible_for) VALUES (99000+1,990,NULL,'item_note',
+'$item_note','','',20,'');
+
+INSERT INTO im_view_columns (column_id, view_id, group_id, column_name, column_render_tcl,
+extra_select, extra_where, sort_order, visible_for) VALUES (99000+2,990,NULL,'project_name',
+'"<a href=/intranet/projects/view?project_id=$project_id>$project_name</a>"','','',30,'');
+
+INSERT INTO im_view_columns (column_id, view_id, group_id, column_name, column_render_tcl,
+extra_select, extra_where, sort_order, visible_for) VALUES (99000+3,990,NULL,'item_date_formatted',
+'$item_date_formatted','','',40,'');
+
+INSERT INTO im_view_columns (column_id, view_id, group_id, column_name, column_render_tcl,
+extra_select, extra_where, sort_order, visible_for) VALUES (99000+4,990,NULL,'item_value',
+'$item_value','','',50,'');
+
+INSERT INTO im_view_columns (column_id, view_id, group_id, column_name, column_render_tcl,
+extra_select, extra_where, sort_order, visible_for) VALUES (99000+5,990,NULL,'item_currency',
+'$item_currency','','',60,'');
+
+INSERT INTO im_view_columns (column_id, view_id, group_id, column_name, column_render_tcl,
+extra_select, extra_where, sort_order, visible_for) VALUES (99000+6,990,NULL,'item_status',
+'$item_status','','',70,'');
+
+
 
