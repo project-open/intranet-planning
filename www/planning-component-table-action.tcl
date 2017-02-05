@@ -13,7 +13,6 @@ ad_page_contract {
     item_status_id_change:array,optional
     item_note:optional
     item_value:optional
-    item_currency:optional
     item_date:optional
     item_status_id:optional
     item_type_id:optional
@@ -79,11 +78,10 @@ if { "" ne $item_note } {
 
     # Mandatory fields are checked already using client side JS, just do a simple validation 
     if { "" ne $item_value } { incr ctr }
-    if { "" ne $item_currency } { incr ctr }
     if { "" ne $item_date } { incr ctr }
     if { "" ne $item_status_id } { incr ctr }
 
-    if { $ctr < 4 } {
+    if { $ctr < 3 } {
         ns_log Notice "intranet-planning::planning-component-table-action: Error creating planning item, variable missing"
     } else {
         # Create new item
@@ -91,8 +89,8 @@ if { "" ne $item_note } {
 	    set item_id [db_string nextval "select nextval('im_planning_items_seq')"]
             db_dml sql "
 		insert into im_planning_items 
-			(item_id,item_note,item_type_id,item_cost_type_id,item_value,item_currency,item_date,item_status_id,item_object_id) values 
-			(:item_id,:item_note,:item_type_id,:item_cost_type_id,:item_value,:item_currency,:item_date,:item_status_id,:object_id)
+			(item_id,item_note,item_type_id,item_cost_type_id,item_value,item_date,item_status_id,item_object_id) values 
+			(:item_id,:item_note,:item_type_id,:item_cost_type_id,:item_value,:item_date,:item_status_id,:object_id)
 		"
         } err_msg]} {
             global errorInfo
