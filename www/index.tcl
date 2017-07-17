@@ -59,7 +59,7 @@ if {"" eq $start_date} { set start_date [parameter::get_from_package_key -packag
 if {"" eq $end_date} { set end_date [parameter::get_from_package_key -package_key "intranet-cost" -parameter DefaultEndDate -default "2100-01-01"] }
 
 if { [empty_string_p $how_many] || $how_many < 1 } {
-    set how_many [parameter::get_from_package_key -package_key "intranet-core" -parameter "NumberResultsPerPage" 50]
+    set how_many [im_parameter -package_id [im_package_core_id] NumberResultsPerPage "" 50]
 }
 set end_idx [expr $start_idx + $how_many]
 
