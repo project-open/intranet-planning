@@ -11,6 +11,7 @@
   <msg key="item_value">Wert</msg>
   <msg key="PlanningItems">Planungselmenete</msg>
   <msg key="PlanningStatus">Planungsstatus</msg>
+  <msg key="PlanningType">Planungstyp</msg>
   <msg key="project_name">Projekt</msg>
   <msg key="Save">Speichern</msg>
 </message_catalog>
