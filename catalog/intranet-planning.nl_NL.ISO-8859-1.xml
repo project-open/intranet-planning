@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<message_catalog package_key="intranet-planning" locale="nl_NL" charset="ISO-8859-1">
+
+  <msg key="Apply">Toepassen</msg>
+  <msg key="Create_quote_from_date">Maak rekening vanuit planning datum</msg>
+  <msg key="item_currency">Valuta</msg>
+  <msg key="item_date_formatted">Datum item</msg>
+  <msg key="item_id">Id</msg>
+  <msg key="item_note">Notitie</msg>
+  <msg key="item_status">Status</msg>
+  <msg key="item_value">Waarde</msg>
+  <msg key="PlanningItems">Planning Items</msg>
+  <msg key="PlanningStatus">Planning Status</msg>
+  <msg key="PlanningType">Type planning</msg>
+  <msg key="project_name">Project Naam</msg>
+  <msg key="Save">Opslaan</msg>
+</message_catalog>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<message_catalog package_key="intranet-planning" locale="pl_PL" charset="utf-8">
+
+  <msg key="Apply">Zastosuj</msg>
+  <msg key="Create_quote_from_date">Utwórz wycenę z danych z planowania</msg>
+  <msg key="item_currency">Waluta</msg>
+  <msg key="item_date_formatted">Data elementu</msg>
+  <msg key="item_id">ID</msg>
+  <msg key="item_note">Notatka</msg>
+  <msg key="item_status">Status</msg>
+  <msg key="item_value">Wartość</msg>
+  <msg key="PlanningItems">Elementy planowania</msg>
+  <msg key="PlanningStatus">Status planowania</msg>
+  <msg key="PlanningType">Typ planowania</msg>
+  <msg key="project_name">Nazwa projektu</msg>
+  <msg key="Save">Zapisz</msg>
+</message_catalog>
