@@ -2,7 +2,7 @@
 <message_catalog package_key="intranet-planning" locale="de_DE" charset="ISO-8859-1">
 
   <msg key="Apply">Anwenden</msg>
-  <msg key="Create_quote_from_date">Angebot erzeugen auf Basis von Planungselementen</msg>
+  <msg key="Create_quote_from_date">Neues Angebot aus Planungselementen</msg>
   <msg key="item_currency">Währung</msg>
   <msg key="item_date_formatted">Datum</msg>
   <msg key="item_id">ID</msg>
