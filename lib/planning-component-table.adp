@@ -1,4 +1,3 @@
-
 <form action="/intranet-planning/planning-component-table-action.tcl" onsubmit="return validateForm()" id="planning-component-table" name="planning-component-table">
 <%=[export_form_vars object_id return_url item_type_id item_cost_type_id]%>
 @body_html;noquote@
@@ -25,11 +24,11 @@ function validateForm() {
         return false;
     }
 
-    var x = document.forms["planning-component-table"]["item_currency"].value;
-    if (x == null || x == "") {
-        alert("Currency must be filled out");
-        return false;
-    }
+    // var x = document.forms["planning-component-table"]["item_currency"].value;
+    // if (x == null || x == "") {
+    //    alert("Currency must be filled out");
+    //    return false;
+    // }
 
     var x = document.forms["planning-component-table"]["item_date"].value;
     if (x == null || x == "") {
