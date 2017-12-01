@@ -197,7 +197,7 @@ switch $action {
 		default {
 			# ToDo: Implement budget for expense types (airfare, telephone, ...)
 			# Not implemented yet
-			ad_return_complaint 1 "Project Financial Planning: '$cost_type_id' planning not implemented yet"
+			# ad_return_complaint 1 "Project Financial Planning: '$cost_type_id' planning not implemented yet"
 		}
 	    }
 
