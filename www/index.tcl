@@ -287,7 +287,7 @@ set sql "
 # Limit the search results to N data sets only
 # to be able to manage large sites
 
-ns_log Notice "/intranet/project-planning/index: Before limiting clause"
+# ns_log Notice "/intranet/project-planning/index: Before limiting clause"
 
 # We can't get around counting in advance if we want to be able to
 # sort inside the table on the page for only those users in the
@@ -315,14 +315,14 @@ set selection [im_select_row_range $sql $start_idx $end_idx]
 # return a table with a form in it (if there are too many
 # options
 
-ns_log Notice "/intranet-planning/index: Before formatting filter"
+# ns_log Notice "/intranet-planning/index: Before formatting filter"
 
 # ---------------------------------------------------------------
 # 7. Format the List Table Header
 # ---------------------------------------------------------------
 
 # Set up colspan to be the number of headers + 1 for the # column
-ns_log Notice "/intranet/project/index: Before format header"
+# ns_log Notice "/intranet/project/index: Before format header"
 set colspan [expr [llength $column_headers] + 1]
 
 set table_header_html ""
@@ -355,7 +355,7 @@ append table_header_html "</tr>\n"
 # 8. Format the Result Data
 # ---------------------------------------------------------------
 
-ns_log Notice "/intranet/project/index: Before db_foreach"
+# ns_log Notice "/intranet/project/index: Before db_foreach"
 
 set table_body_html ""
 set bgcolor(0) " class=roweven "
@@ -438,7 +438,7 @@ if { $start_idx > 0 } {
 # 9. Format Table Continuation
 # ---------------------------------------------------------------
 
-ns_log Notice "/intranet/project/index: before table continuation"
+# ns_log Notice "/intranet/project/index: before table continuation"
 # Check if there are rows that we decided not to return
 # => include a link to go to the next page
 #
