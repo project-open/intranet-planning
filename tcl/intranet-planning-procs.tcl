@@ -27,10 +27,10 @@ ad_proc -public im_planning_item_type_costs {} { return 73102 }
 
 ad_proc -public im_planning_component {
     {-planning_type_id 73100 }
-    {-planning_time_dim_id 73202 }
-    {-planning_dim1_id "" }
-    {-planning_dim2_id "" }
-    {-planning_dim3_id "" }
+    {-top_dimension "" }
+    {-left_dimension "" }
+    {-planning_dimension_date "" }
+    {-planning_dimension_cost_type "" }
     {-restrict_to_main_project_p 1 }
     -object_id
 } {
@@ -48,10 +48,10 @@ ad_proc -public im_planning_component {
     set params [list \
 		    [list object_id $object_id] \
 		    [list planning_type_id $planning_type_id] \
-		    [list planning_time_dim_id $planning_time_dim_id] \
-		    [list planning_dim1_id $planning_dim1_id] \
-		    [list planning_dim2_id $planning_dim2_id] \
-		    [list planning_dim3_id $planning_dim3_id] \
+		    [list top_dimension $top_dimension] \
+		    [list left_dimension $left_dimension] \
+		    [list planning_dimension_date $planning_dimension_date] \
+		    [list planning_dimension_cost_type $planning_dimension_cost_type] \
     ]
 
     set result [ad_parse_template -params $params "/packages/intranet-planning/lib/planning-component"]

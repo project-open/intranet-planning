@@ -11,20 +11,19 @@
 # Variables from intranet-planning-procs:
 #	object_id:integer
 #	planning_type_id
-#	planning_time_dim_id 73202
-#	planning_dim1 ""
-#	planning_dim2 ""
-#	planning_dim3 ""
-#	restrict_to_main_project_p 1
+#	top_dimension
+#	left_dimension
+#	planning_dimension_date
+#	planning_dimension_cost_type
 
 # Set default values from parameters
 if {![info exists planning_type_id] || "" == $planning_type_id} { 
     set planning_type_id [parameter::get_from_package_key -package_key intranet-planning -parameter "PlanningType" -default 73102] 
 }
-if {![info exists top_vars] || "" == $top_vars} { 
+if {![info exists top_dimension] || "" == $top_dimension} { 
     set top_dimension [parameter::get_from_package_key -package_key intranet-planning -parameter "TopDimension" -default "time"] 
 }
-if {![info exists left_vars] || "" == $left_vars} { 
+if {![info exists left_dimension] || "" == $left_dimension} { 
     set left_dimension [parameter::get_from_package_key -package_key intranet-planning -parameter "LeftDimension" -default "project_phase"] 
 }
 if {![info exists planning_dimension_date] || "" == $planning_dimension_date} { 
@@ -44,10 +43,6 @@ if {[llength $top_dimension] > 1} { ad_return_complaint 1 "<b>Not implemented ye
 if {[llength $left_dimension] > 1} { ad_return_complaint 1 "<b>Not implemented yet</b>:<br>Please limit LeftDimension to a single variable." }
 
 
-# ad_return_complaint xx "$top_dimension $left_dimension"
-
-set top_dimension cost_type 
-set left_dimension project_phase
 # -------------------------------------------------------------
 # Calculate the top and left variables to select out from the im_planning_items table
 #
