@@ -22,19 +22,6 @@ ad_page_contract {
     item_note:array,optional
 }
 
-
-if {0} {
-ad_return_complaint 1 "<pre>
-phase:[array get item_project_phase_id]
-project_member:[array get item_project_member_id]
-cost_type:[array get item_cost_type_id]
-date:[array get item_date]
-note:[array get item_note]
-value:[array get item_value]
-</pre>
-"
-}
-
 # ---------------------------------------------------------------
 # Defaults & Security
 # ---------------------------------------------------------------
@@ -280,6 +267,25 @@ switch $action {
 	ad_return_complaint 1 "<li>Unknown action: '$action'"
     }
 }
+
+callback im_planning_after_action -object_id $object_id -action $action
+
+
+if {0} {
+ad_return_complaint 1 "<pre>
+action:$action
+phase:[array get item_project_phase_id]
+project_member:[array get item_project_member_id]
+cost_type:[array get item_cost_type_id]
+date:[array get item_date]
+note:[array get item_note]
+value:[array get item_value]
+</pre>
+"
+ad_script_abort
+}
+
+
 
 ad_returnredirect $return_url
 
