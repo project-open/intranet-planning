@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<message_catalog package_key="intranet-planning" locale="it_IT" charset="ISO-8859-1">
+
+  <msg key="Apply">Applica</msg>
+  <msg key="Create_quote_from_date">Create quote from planning data
+Crea Quatation da dati pianificati</msg>
+  <msg key="Save">Salva</msg>
+</message_catalog>
