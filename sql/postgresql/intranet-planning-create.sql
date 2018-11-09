@@ -444,9 +444,9 @@ SELECT  im_component_plugin__new (
 );
  
 -- Permissions
-PERFORM im_grant_permission(
-	(select plugin_id from im_component_plugins where plugin_name = 'Planning Component (Table View)',
-	(select group_id from im_groups where name = 'Employees'), 
+SELECT im_grant_permission(
+	(select plugin_id from im_component_plugins where plugin_name = 'Planning Component (Table View)'),
+	(select group_id from groups where group_name = 'Employees'), 
 	'read'
 );
 
