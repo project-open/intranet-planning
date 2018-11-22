@@ -128,7 +128,10 @@ create table im_planning_items (
 			-- Should be set to the 1st day of week or month to plan.
 	item_value	numeric(12,2),
 			-- Note per line
-	item_note	text
+	item_note	text,
+	creation_date	timestamptz,
+	create_user	integer,
+	creation_ip	text
 );
 
 -- Speed up (frequent) queries to find all planning for a specific object.
@@ -205,7 +208,10 @@ BEGIN
 		item_cost_type_id,
 		item_date,
 		item_value,
-		item_note
+		item_note,
+		creation_date,
+		creation_user,
+		creation_ip
 	) values (
 		v_item_id,
 		p_item_object_id,
@@ -216,7 +222,10 @@ BEGIN
 		p_item_cost_type_id,
 		p_item_date,
 		p_item_value,
-		p_item_note
+		p_item_note,
+		p_creation_date,
+		p_creation_user,
+		p_creation_ip
 	);
 
 	-- Store the current hourly_rate with planning items.
