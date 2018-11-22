@@ -140,16 +140,13 @@ create index im_planning_items_object_idx on im_planning_items(item_object_id);
 -- performs a "double-click" on the "Create New Planning Item" button...
 -- (This makes a lot of sense in practice. Otherwise there would be loads
 -- of duplicated projects in the system and worse...)
-create unique index im_planning_object_item_idx on im_planning_items(
+create unique index im_planning_object_item_un on im_planning_items(
 	item_object_id,
 	coalesce(item_project_phase_id,0), 
 	coalesce(item_project_member_id,0),
 	coalesce(item_cost_type_id,0),
 	coalesce(item_date,'2000-01-01'::timestamptz)
 );
-
-
-
 
 
 
@@ -264,6 +261,7 @@ END; $body$ language 'plpgsql';
 -- Status
 SELECT im_category_new (73000, 'Active', 'Intranet Planning Status');
 SELECT im_category_new (73002, 'Deleted', 'Intranet Planning Status');
+SELECT im_category_new (73004, 'Archived', 'Intranet Planning Status');
 
 -- Type
 SELECT im_category_new (73100, 'Revenues', 'Intranet Planning Type');

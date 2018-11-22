@@ -15,10 +15,12 @@ ad_library {
 # ----------------------------------------------------------------------
 
 ad_proc -public im_planning_item_status_active {} { return 73000 }
-ad_proc -public im_planning_item_status_deleted {} { return 73102 }
+ad_proc -public im_planning_item_status_deleted {} { return 73002 }
+ad_proc -public im_planning_item_status_archived {} { return 73004 }
 
 ad_proc -public im_planning_item_type_revenues {} { return 73100 }
 ad_proc -public im_planning_item_type_costs {} { return 73102 }
+ad_proc -public im_planning_item_type_hours {} { return 73104 }
 
 
 # ----------------------------------------------------------------------
