@@ -65,7 +65,7 @@ switch $action {
 	set expense_bundles_planned ""
 
 	# Delete existing planning elements
-	foreach cost_type_id [list [im_cost_type_timesheet_planned] [im_cost_type_timesheet_hours] [im_cost_type_expense_planned]] {
+	foreach cost_type_id [list [im_cost_type_timesheet_budget] [im_cost_type_timesheet_hours] [im_cost_type_expense_planned]] {
 	    set del_costs_sql "
 		select	cost_id
 		from	im_costs
@@ -160,7 +160,7 @@ switch $action {
 			set timesheet_hours_planned [expr $timesheet_hours_planned + $value]
 
 			# Trigger the generation of a cost item
-			set target_cost_type_id [im_cost_type_timesheet_planned]
+			set target_cost_type_id [im_cost_type_timesheet_budget]
 			set target_amount [expr $billing_rate * $value]
 		}
 		3720 {
