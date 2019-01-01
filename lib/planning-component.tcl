@@ -256,6 +256,23 @@ db_foreach planning_items $sql {
     if {[info exists hash($footer_key)]} { set v $hash($footer_key) }
     set v [expr $v + $item_value]
     set hash($footer_key) $v
+
+
+    # The right_sum contains the aggregated values from
+    # the specific left_vars, summed up across top_vars.
+    set right_sum_key_expr "\$[join $left_vars "-\$"]"
+    set right_sum_key [eval "set a \"$right_sum_key_expr\""]
+    set v 0.0
+    if {[info exists hash($right_sum_key)]} { set v $hash($right_sum_key) }
+    set v [expr $v + $item_value]
+    set hash($right_sum_key) $v
+
+    # The bottom right sum contains all values
+    set key ""
+    set v 0.0
+    if {[info exists hash($key)]} { set v $hash($key) }
+    set v [expr $v + $item_value]
+    set hash($key) $v
 }
 
 
@@ -335,6 +352,9 @@ for {set row 0} {$row < $top_scale_rows} { incr row } {
 	}
 	append header "\t<td class=rowtitle colspan=$colspan>$scale_item_pretty</td>\n"	
     }
+
+    append header "\t<td class=rowtitle colspan=$colspan>&Sigma;</td>\n"	
+
     append header "</tr>\n"
 }
 
@@ -400,8 +420,18 @@ foreach left_scale_item $left_scale {
 	append row "<input type=hidden name=item_date.$cell_cnt value=\"[im_opt_val item_date]\">\n"
         append row "</td>\n"
 	incr cell_cnt
-
     }
+
+    # -----------------------------------------------------------
+    # Show the horizontal sum of entries
+    set right_sum_key_expr "\$[join $left_vars "-\$"]"
+    set right_sum_key [eval "set a \"$right_sum_key_expr\""]
+    set value "0"
+    if {[info exists hash($right_sum_key)]} { set value [expr round($hash($right_sum_key))] }
+    append row "\t<td align=right>$value</td>\n"
+
+    # -----------------------------------------------------------
+    # Close the row
     append row "</tr>\n"
     append body $row
     incr row_cnt
@@ -429,5 +459,15 @@ for {set col 0} {$col <= [expr [llength $top_scale]-1]} { incr col } {
     if {[info exists hash($key)]} { set value [expr round($hash($key))] }
     append footer "\t<td align=right class=rowtitle colspan=$colspan>$value</td>\n"
 }
+
+# -----------------------------------------------------------
+# Show the total sum in the lower right corner
+set key ""
+set value "0"
+if {[info exists hash($key)]} { set value [expr round($hash($key))] }
+append footer "\t<td align=right class=rowtitle colspan=$colspan>$value</td>\n"
+
+
+
 append footer "</tr>\n"
 
