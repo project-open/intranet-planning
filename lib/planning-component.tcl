@@ -17,20 +17,20 @@
 #	planning_dimension_cost_type
 
 # Set default values from parameters
-if {![info exists planning_type_id] || "" == $planning_type_id} { 
-    set planning_type_id [parameter::get_from_package_key -package_key intranet-planning -parameter "PlanningType" -default 73102] 
+if {![info exists planning_type_id] || "" == $planning_type_id} {
+    set planning_type_id [parameter::get_from_package_key -package_key intranet-planning -parameter "PlanningType" -default 73102]
 }
-if {![info exists top_dimension] || "" == $top_dimension} { 
-    set top_dimension [parameter::get_from_package_key -package_key intranet-planning -parameter "TopDimension" -default "time"] 
+if {![info exists top_dimension] || "" == $top_dimension} {
+    set top_dimension [parameter::get_from_package_key -package_key intranet-planning -parameter "TopDimension" -default "time"]
 }
-if {![info exists left_dimension] || "" == $left_dimension} { 
-    set left_dimension [parameter::get_from_package_key -package_key intranet-planning -parameter "LeftDimension" -default "project_phase"] 
+if {![info exists left_dimension] || "" == $left_dimension} {
+    set left_dimension [parameter::get_from_package_key -package_key intranet-planning -parameter "LeftDimension" -default "project_phase"]
 }
-if {![info exists planning_dimension_date] || "" == $planning_dimension_date} { 
-    set planning_dimension_date [parameter::get_from_package_key -package_key intranet-planning -parameter "DimensionTime" -default "month"] 
+if {![info exists planning_dimension_date] || "" == $planning_dimension_date} {
+    set planning_dimension_date [parameter::get_from_package_key -package_key intranet-planning -parameter "DimensionTime" -default "month"]
 }
-if {![info exists planning_dimension_cost_type] || "" == $planning_dimension_cost_type} { 
-    set planning_dimension_cost_type [parameter::get_from_package_key -package_key intranet-planning -parameter "DimensionCostType" -default "3704 3736 3722"] 
+if {![info exists planning_dimension_cost_type] || "" == $planning_dimension_cost_type} {
+    set planning_dimension_cost_type [parameter::get_from_package_key -package_key intranet-planning -parameter "DimensionCostType" -default "3704 3736 3722"]
 }
 
 
@@ -66,18 +66,18 @@ switch $left_dimension {
 #
 set user_id [ad_maybe_redirect_for_registration]
 set new_item_url [export_vars -base "/intranet-planning/new" {object_id return_url}]
-if {![info exists return_url] || "" == $return_url} { 
-    set return_url [im_url_with_query] 
+if {![info exists return_url] || "" == $return_url} {
+    set return_url [im_url_with_query]
 }
 
 # Size of the input field
-set input_field_size [parameter::get_from_package_key -package_key intranet-planning -parameter "PlanningValueInputFieldSize" -default 6] 
+set input_field_size [parameter::get_from_package_key -package_key intranet-planning -parameter "PlanningValueInputFieldSize" -default 6]
 
 # Rounding precision of the displayed values
 # The database by default contains a numeric(12,2) field,
-# so there are max. 2 digits stored in the DB. You can 
+# so there are max. 2 digits stored in the DB. You can
 # change this in the DB if you need more precision.
-set rounding_digits [parameter::get_from_package_key -package_key intranet-planning -parameter "PlanningValueRoundingDigits" -default 0] 
+set rounding_digits [parameter::get_from_package_key -package_key intranet-planning -parameter "PlanningValueRoundingDigits" -default 0]
 
 
 # -------------------------------------------------------------
@@ -118,7 +118,7 @@ db_0or1row start_date "
 
 # -------------------------------------------------------------
 # Time Dimension: Calculate value range
-# 
+#
 set dimension_date_list [list]
 switch $planning_dimension_date {
     year { set date_format "YYYY" }
@@ -232,8 +232,8 @@ db_foreach planning_items $sql {
     # Post-process date if exists
     switch $planning_dimension_date {
 	year { if {[regexp {^(....)} $item_date match year]} { set item_date $year } }
-	quarter { 
-	    if {[regexp {^(....)-(..)} $item_date match year month]} { 
+	quarter {
+	    if {[regexp {^(....)-(..)} $item_date match year month]} {
 		set quarter [expr int([string trimleft $month "0"] / 3) + 1]
 		set item_date "$year-$quarter"
 	    }
@@ -242,11 +242,20 @@ db_foreach planning_items $sql {
 	week { ad_return_complaint 1 "Time dimension 'week' not implemented yet" }
     }
 
-    # Calculate the key for this permutation
+    # Calculate the cell_key for this permutation
     # something like "$year-$month-$customer_id"
-    set key_expr "\$[join $dimension_vars "-\$"]"
-    set key [eval "set a \"$key_expr\""]
-    set hash($key) $item_value
+    set cell_key_expr "\$[join $dimension_vars "-\$"]"
+    set cell_key [eval "set a \"$cell_key_expr\""]
+    set hash($cell_key) $item_value
+
+    # The footer contains the aggregated values from
+    # the specific top_vars, summed up across left_vars.
+    set footer_key_expr "\$[join $top_vars "-\$"]"
+    set footer_key [eval "set a \"$footer_key_expr\""]
+    set v 0.0
+    if {[info exists hash($footer_key)]} { set v $hash($footer_key) }
+    set v [expr $v + $item_value]
+    set hash($footer_key) $v
 }
 
 
@@ -307,7 +316,7 @@ for {set row 0} {$row < $top_scale_rows} { incr row } {
 
 	# Check for the "sigma" sign. We want to display the sigma
 	# every time (disable the colspan logic)
-	if {$scale_item_key == $sigma} { 
+	if {$scale_item_key == $sigma} {
 	    append header "\t<td class=rowtitle>$scale_item_key</td>\n"
 	    continue
 	}
@@ -324,7 +333,7 @@ for {set row 0} {$row < $top_scale_rows} { incr row } {
 	    incr next_col
 	    incr colspan
 	}
-	append header "\t<td class=rowtitle colspan=$colspan>$scale_item_pretty</td>\n"	    
+	append header "\t<td class=rowtitle colspan=$colspan>$scale_item_pretty</td>\n"	
     }
     append header "</tr>\n"
 }
@@ -366,7 +375,7 @@ foreach left_scale_item $left_scale {
 	    set top_var [lindex $top_vars $top_scale_cnt]
 	    set top_scale_item [lindex $top_scale_entry $top_scale_cnt]
 	    set top_scale_key [lindex $top_scale_item 0]
-	    
+	
 	    # Write the value to a local variable
 	    set $top_var $top_scale_key
 	    incr top_scale_cnt
@@ -397,4 +406,28 @@ foreach left_scale_item $left_scale {
     append body $row
     incr row_cnt
 }
+
+
+
+# ------------------------------------------------------------
+# Display the Table Footer
+
+set footer ""
+append footer "<tr class=rowtitle>\n"
+append footer "\t<td class=rowtitle colspan=$colspan>&nbsp;</td>\n"
+
+for {set col 0} {$col <= [expr [llength $top_scale]-1]} { incr col } {
+    for {set row 0} {$row < $top_scale_rows} { incr row } {
+	set key_list ""
+	set scale_entry [lindex $top_scale $col]
+	set scale_item [lindex $scale_entry $row]
+	set scale_item_key [lindex $scale_item 0]
+	lappend key_list $scale_item_key
+    }
+    set key [join $key_list "-"]
+    set value "0"
+    if {[info exists hash($key)]} { set value [expr round($hash($key))] }
+    append footer "\t<td align=right class=rowtitle colspan=$colspan>$value</td>\n"
+}
+append footer "</tr>\n"
 

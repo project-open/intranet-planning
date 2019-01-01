@@ -4,6 +4,8 @@
 <table>
 @header;noquote@
 @body;noquote@
+@footer;noquote@
+
 <if @object_write@>
 	<tr class="rowodd">
 	    <td colspan=99 align=left>
