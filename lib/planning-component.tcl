@@ -313,6 +313,7 @@ set first_cell [lindex $top_scale 0]
 set top_scale_rows [llength $first_cell]
 set left_scale_size [llength [lindex $left_scale 0]]
 
+set colspan 1
 set header ""
 for {set row 0} {$row < $top_scale_rows} { incr row } {
 
@@ -344,7 +345,6 @@ for {set row 0} {$row < $top_scale_rows} { incr row } {
 
 	# This is the first entry of a new content.
 	# Look forward to check if we can issue a "colspan" command
-	set colspan 1
 	set next_col [expr $col+1]
 	while {$scale_item_key == [lindex [lindex $top_scale $next_col] $row]} {
 	    incr next_col
