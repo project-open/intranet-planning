@@ -113,6 +113,7 @@ switch $action {
 	    if {"" != $project_member_id} {
 		set billing_rate [util_memoize [list db_string billing_rate "select hourly_cost from im_employees where employee_id = $project_member_id" -default ""]]
 	    }
+	    if {"" eq $billing_rate} { set billing_rate $default_billing_rate }
 
 	    db_string insert_im_planning_item "select im_planning_item__new(
 			-- object standard 6 parameters
