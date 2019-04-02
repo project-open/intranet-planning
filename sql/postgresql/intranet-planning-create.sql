@@ -130,7 +130,7 @@ create table im_planning_items (
 			-- Note per line
 	item_note	text,
 	creation_date	timestamptz,
-	create_user	integer,
+	creation_user	integer,
 	creation_ip	text
 );
 
