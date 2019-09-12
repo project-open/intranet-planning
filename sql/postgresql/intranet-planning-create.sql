@@ -129,6 +129,9 @@ create table im_planning_items (
 	item_value	numeric(12,2),
 			-- Note per line
 	item_note	text,
+			-- may reference im_budget_versions in the future, but not yet...
+	item_version_id	integer,
+
 	creation_date	timestamptz,
 	creation_user	integer,
 	creation_ip	text
@@ -148,6 +151,7 @@ create unique index im_planning_object_item_un on im_planning_items(
 	coalesce(item_project_phase_id,0), 
 	coalesce(item_project_member_id,0),
 	coalesce(item_cost_type_id,0),
+	coalesce(item_version_id,0),
 	coalesce(item_date,'2000-01-01'::timestamptz)
 );
 
@@ -160,12 +164,13 @@ create unique index im_planning_object_item_un on im_planning_items(
 -- from a super object...).
 -- The following parameters specify the content of a item with
 -- the required fields of the im_planning table.
+
 create or replace function im_planning_item__new (
 	integer, varchar, timestamptz,
 	integer, varchar, integer,
 	integer, integer, integer,
 	numeric, varchar,
-	integer, integer, integer, timestamptz
+	integer, integer, integer, timestamptz, integer
 ) returns integer as $body$
 DECLARE
 	-- Default 6 parameters that go into the acs_objects table
@@ -190,6 +195,7 @@ DECLARE
 	p_item_project_member_id alias for $13;
 	p_item_cost_type_id	alias for $14;
 	p_item_date		alias for $15;
+	p_item_version		alias for $16;
 
 	v_item_id		integer;
 BEGIN
@@ -209,6 +215,7 @@ BEGIN
 		item_date,
 		item_value,
 		item_note,
+		item_version,
 		creation_date,
 		creation_user,
 		creation_ip
@@ -223,6 +230,7 @@ BEGIN
 		p_item_date,
 		p_item_value,
 		p_item_note,
+		p_item_version,
 		p_creation_date,
 		p_creation_user,
 		p_creation_ip
