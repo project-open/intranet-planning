@@ -195,7 +195,7 @@ DECLARE
 	p_item_project_member_id alias for $13;
 	p_item_cost_type_id	alias for $14;
 	p_item_date		alias for $15;
-	p_item_version		alias for $16;
+	p_item_version_id	alias for $16;
 
 	v_item_id		integer;
 BEGIN
@@ -215,7 +215,7 @@ BEGIN
 		item_date,
 		item_value,
 		item_note,
-		item_version,
+		item_version_id,
 		creation_date,
 		creation_user,
 		creation_ip
@@ -230,7 +230,7 @@ BEGIN
 		p_item_date,
 		p_item_value,
 		p_item_note,
-		p_item_version,
+		p_item_version_id,
 		p_creation_date,
 		p_creation_user,
 		p_creation_ip
