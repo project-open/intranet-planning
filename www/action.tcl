@@ -123,7 +123,7 @@ switch $action {
 			-- Value parameters
 			:value, :note,
 			-- Dimension parameters
-			:project_phase_id, :project_member_id, :cost_type_id, :date, NULL
+			:project_phase_id, :project_member_id, :cost_type_id, :date
 		)
 	    "
 
