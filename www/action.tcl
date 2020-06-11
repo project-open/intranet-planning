@@ -81,14 +81,14 @@ switch $action {
 	    set value $item_value($id)
 	    if {"" == $value} { continue }
 
-	    set project_phase_id [im_opt_val item_project_phase_id($id)]
-	    set project_member_id [im_opt_val item_project_member_id($id)]
-	    set cost_type_id [im_opt_val item_cost_type_id($id)]
+	    set project_phase_id [im_opt_val -limit_to integer item_project_phase_id($id)]
+	    set project_member_id [im_opt_val -limit_to integer item_project_member_id($id)]
+	    set cost_type_id [im_opt_val -limit_to integer item_cost_type_id($id)]
 	    set item_type_id [im_planning_item_type_revenues]
 	    set item_status_id [im_planning_item_status_active]
-	    set value [im_opt_val item_value($id)]
-	    set note [im_opt_val item_note($id)]
-	    set date_value [im_opt_val item_date($id)]
+	    set value [im_opt_val -limit_to nohtml item_value($id)]
+	    set note [im_opt_val -limit_to nohtml item_note($id)]
+	    set date_value [im_opt_val -limit_to nohtml item_date($id)]
 	    im_security_alert_check_integer -location "intranet-planning/action.tcl" -value $project_phase_id
 	    im_security_alert_check_integer -location "intranet-planning/action.tcl" -value $project_member_id
 	    im_security_alert_check_alphanum -location "intranet-planning/action.tcl" -value $date_value

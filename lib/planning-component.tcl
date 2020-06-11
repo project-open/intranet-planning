@@ -414,10 +414,10 @@ foreach left_scale_item $left_scale {
 
 	append row "\t<td align=right>\n"
 	append row "<input type=text name=item_value.$cell_cnt value=\"$sum\" size=$input_field_size>\n"
-	append row "<input type=hidden name=item_project_phase_id.$cell_cnt value=[im_opt_val item_project_phase_id]>\n"
-	append row "<input type=hidden name=item_project_member_id.$cell_cnt value=[im_opt_val item_project_member_id]>\n"
-	append row "<input type=hidden name=item_cost_type_id.$cell_cnt value=[im_opt_val item_cost_type_id]>\n"
-	append row "<input type=hidden name=item_date.$cell_cnt value=\"[im_opt_val item_date]\">\n"
+	append row "<input type=hidden name=item_project_phase_id.$cell_cnt value=[im_opt_val -limit_to integer item_project_phase_id]>\n"
+	append row "<input type=hidden name=item_project_member_id.$cell_cnt value=[im_opt_val -limit_to integer item_project_member_id]>\n"
+	append row "<input type=hidden name=item_cost_type_id.$cell_cnt value=[im_opt_val -limit_to integer item_cost_type_id]>\n"
+	append row "<input type=hidden name=item_date.$cell_cnt value=\"[im_opt_val -limit_to nohtml item_date]\">\n"
         append row "</td>\n"
 	incr cell_cnt
     }
