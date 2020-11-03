@@ -3,7 +3,7 @@
 @body_html;noquote@
 </form>
 
-<script type="text/javascript">
+<script type="text/javascript" <if @::__csp_nonce@ not nil>nonce="@::__csp_nonce;literal@"</if>>
         jQuery().ready(function() {
                 $(function() {
                 $( "#item_date" ).datepicker({ dateFormat: "yy-mm-dd" });

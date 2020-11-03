@@ -185,8 +185,8 @@ ad_form \
 ad_form -extend -name $form_id -form {
     {item_status_id:text(im_category_tree),optional {label #intranet-planning.PlanningStatus#} {value $item_status_id} {custom {category_type "Intranet Planning Status" translate_p 1 include_empty_name $all_l10n}} }
     {item_type_id:text(im_category_tree),optional {label #intranet-planning.PlanningType#} {value $item_type_id} {custom {category_type "Intranet Planning Type" translate_p 1 include_empty_name $all_l10n} } }
-    {start_date:text(text) {label "[_ intranet-timesheet2.Start_Date]"} {value "$start_date"} {html {size 10}} {after_html {<input type="button" style="height:20px; width:20px; background: url('/resources/acs-templating/calendar.gif');" onclick ="return showCalendar('start_date', 'y-m-d');" >}}}
-    {end_date:text(text) {label "[_ intranet-timesheet2.End_Date]"} {value "$end_date"} {html {size 10}} {after_html {<input type="button" style="height:20px; width:20px; background: url('/resources/acs-templating/calendar.gif');" onclick ="return showCalendar('end_date', 'y-m-d');" >}}}
+    {start_date:text(text) {label "[_ intranet-timesheet2.Start_Date]"} {value "$start_date"} {html {size 10}} {after_html {<input id=start_date_calendar type="button" style="height:20px; width:20px; background: url('/resources/acs-templating/calendar.gif');" >}}}
+    {end_date:text(text) {label "[_ intranet-timesheet2.End_Date]"} {value "$end_date"} {html {size 10}} {after_html {<input id=end_date_calendar type="button" style="height:20px; width:20px; background: url('/resources/acs-templating/calendar.gif');"  >}}}
 
 } 
 
