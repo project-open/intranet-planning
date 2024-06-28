@@ -93,7 +93,6 @@ switch $action {
 	    im_security_alert_check_integer -location "intranet-planning/action.tcl" -value $project_member_id
 	    im_security_alert_check_alphanum -location "intranet-planning/action.tcl" -value $date_value
 
-
 	    # Fix date according to date dimension type
 	    # Work around errors in the PG date processing
 	    switch $planning_dimension_date {
@@ -189,6 +188,10 @@ switch $action {
 		}
 	    }
 
+
+	    # Fraber 2024-06-13: Disabled creation of planning costs
+	    # This is replaced by intranet-budget
+	    set target_cost_type_id ""
 
 	    # --------------------------------------------------
 	    # Generate a cost element
